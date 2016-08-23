@@ -12,7 +12,7 @@ def index(request):
 
     if current_user.user_level == 'user':
         return render(request, 'dashboard/index.html', context)
-    else:
+    else: #only two choices for user level - admin and user
         return render(request, 'dashboard/index_admin.html', context)
 
 # users page to edit own info
@@ -24,7 +24,7 @@ def edit_info(request):  #POST REQUEST
     pass
 
 # POST request for user editing password
-def edit_pw(request):  #POST REQUEST
+def edit_pw(request):  #POST REQUESTupda
     pass
 
 # POST request for user editing description
@@ -55,7 +55,6 @@ def new_admin(request):
 # POST link for new user form (admin only)
 def create_admin(request): 
     User.objects.create(email= request.POST['email'], first_name = request.POST['first_name'], last_name= request.POST['last_name'], password= request.POST['password'])
-    print Appointment.userManager.all()
     return redirect(reverse('dashboard:index_admin'))
 
 # show user wall
