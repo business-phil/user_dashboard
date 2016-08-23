@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.urlresolvers import reverse
+from .models import User, Message, Comment
 
 # user/admin home page
 def index(request):
     current_user = User.objects.get(id=request.session['user_id'])
     user = User.objects.all()
-
     context = {
         'users' :user,
                 }
@@ -19,7 +19,6 @@ def index(request):
 # users page to edit own info
 def edit(request):
     user = User.objects.get(id=request.session['user_id'])
-
     if user.user_level == 'user':
         editForm = EditForm()
         editPasswordForm = EditPasswordForm()
@@ -27,7 +26,6 @@ def edit(request):
         editStr = 'profile'
         title = 'Profile'
         #show div id=EditDescriptionForm
-
     else:
         editForm = EditAdminForm()
         editPasswordForm = EditPasswordAdminForm()
@@ -35,7 +33,6 @@ def edit(request):
         editStr = "user #" + str(request.session['user_id'])
         title = 'User'
         #hide div id= EditdescriptionForm
-
     context = {
         'editForm': editForm,
         'editPasswordForm': editPasswordForm,
