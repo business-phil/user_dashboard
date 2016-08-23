@@ -70,7 +70,7 @@ def edit_pw_admin(request, user_id):  #POST REQUEST
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):  #POST REQUEST
     User.objects.filter(user_id=user_id).delete()
-    return redirect(reverse('dashboard:index_admin')) #after user is created - redirects to the admin user dashboard
+    return redirect(reverse('dashboard:index_admin')) 
 
 # admin page to create new user
 def new_admin(request):
