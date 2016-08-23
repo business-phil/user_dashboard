@@ -31,11 +31,11 @@ def edit_admin(request, user_id):
     pass
 
 # POST request for admin editing user info
-def edit_info(request, user_id):  #POST REQUEST
+def edit_info_admin(request, user_id):  #POST REQUEST
     pass
 
 # POST request for admin editing user password
-def edit_pw(request, user_id):  #POST REQUEST
+def edit_pw_admin(request, user_id):  #POST REQUEST
     pass
 
 # POST link for delete user link (admin only)
@@ -56,9 +56,9 @@ def show(request, user_id):
     comments = Comment.objects.all()
     user = User.objects.get(id=user_id)
     context = {
-        'user' = user,
-        'messages' = messages,
-        'comments' = comments
+        'user': user,
+        'messages': messages,
+        'comments': comments
     }
     return render(request, 'dashboard/show.html')
 # POST request for adding message
