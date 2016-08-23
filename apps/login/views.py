@@ -1,15 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import User
-# from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .forms import RegisterForm, LoginForm
 
 # Login and reg at homepage
 def index(request):
     request.session.clear()
-    # loginform = AuthenticationForm
-    # regform = UserCreationForm
     context = {
-        # "login":loginform,
-        # "reg":regform,
+        'regform': RegisterForm,
+        'loginform': LoginForm
     }
     return render(request, 'login/index.html', context)
 
@@ -19,4 +17,5 @@ def login(request):  #POST
 
 # Submit registration form
 def register(request):  #POST
+    # regstatus = User.userManager.register(**request.POST)
     pass

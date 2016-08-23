@@ -8,11 +8,15 @@
     <h2>User Dashboard</h2>
     <form action="{% url 'login:login' %}" method="post">
         {% csrf_token %}
+        {{ loginform.as_ul }}
         <input type="submit" value="Log In">
     </form>
 
     <form action="{% url 'login:register' %}" method="post">
         {% csrf_token %}
+        <table>
+        {{ regform.as_table }}
+        </table>
         <input type="submit" value="Register" />
     </form>
 </body>
