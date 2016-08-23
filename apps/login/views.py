@@ -11,11 +11,23 @@ def index(request):
     }
     return render(request, 'login/index.html', context)
 
-# Submit login form
-def login(request):  #POST
-    pass
-
 # Submit registration form
-def register(request):  #POST
-    # regstatus = User.userManager.register(**request.POST)
-    pass
+def register(request):
+    regstatus = User.userManager.register(**request.POST)
+    if regstatus[0]:
+        request.session['user_id'] = regstatus[1]
+        return redirect(reverse('dashboard:index'))
+    else:
+        for message in regstatus[1]:
+            messages.warning(request, message)
+        return redirect(reverse('loginreg:index'))
+
+# Submit login form
+def login(request):
+    loginstatus = User.usermanager.login(request.POST['email'], request.POST['password'])
+    if loginstatus[0]:
+        request.session['user_id'] = loginstatus[1]
+        return redirect(reverse('books:index'))
+    else:
+        messages.warning(request, loginstatus[1])
+        return redirect(reverse('loginreg:index'))

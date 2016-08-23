@@ -3,15 +3,33 @@
 <head>
     <meta charset="utf-8">
     <title>Welcome | User Dashboard</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/style.css' %}">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
     <h2>User Dashboard</h2>
-    <form action="{% url 'login:login' %}" method="post">
+    <form class="form-inline" action="{% url 'login:login' %}" method="post">
         {% csrf_token %}
-        {{ loginform.as_ul }}
-        <input type="submit" value="Log In">
+        {% for input in loginform %}
+            <div class="form-group">
+                {{ input.label_tag }}{{ input }}
+            </div>
+        {% endfor %}
+        <button class="btn btn-default btn-sm" type="submit">Log In</button>
     </form>
-
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <form action="{% url 'login:register' %}" method="post">
         {% csrf_token %}
         <table>

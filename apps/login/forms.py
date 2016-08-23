@@ -10,4 +10,4 @@ class RegisterForm(forms.Form):
     first_name = forms.CharField(max_length=45)
     last_name = forms.CharField(max_length=45)
     password = forms.CharField(max_length=45, widget=forms.PasswordInput)
-    conf_password = forms.CharField(max_length=45, widget=forms.PasswordInput)
+    confirm_password = forms.CharField(max_length=45, widget=forms.PasswordInput)
