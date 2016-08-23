@@ -6,13 +6,13 @@ from ..login.models import User
 # Create your models here.
 class Message(models.Model):
 	message = models.CharField(max_length=1000)
-	user = ForeignKey(User, related_name='usermessage')
+	user = models.ForeignKey(User, related_name='usermessage')
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
 class Comment(models.Model):
 	comment = models.CharField(max_length=1000)
-	user = ForeignKey(User, related_name='usercomment')
-	message = ForeignKey(User, related_name='messagecomment')
+	user = models.ForeignKey(User, related_name='usercomment')
+	message = models.ForeignKey(User, related_name='messagecomment')
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)

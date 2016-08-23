@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>User Wall | User Dashboard</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static dashboard/css/style.css %}">
+
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Optional theme -->
@@ -12,7 +15,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-default">
-  <div class="container-fluid">
+  	<div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -23,75 +26,74 @@
       </button>
       <a class="navbar-brand" href="#">User Dashboard</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+        <li class="active"><a href="{% url 'index' %}">Dashboard<span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'show' user_id=request.session.user_id %}">Profile</a></li>
       </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
+
+     <ul class="nav navbar-nav navbar-right">
+     	<li><a href="{% url 'login:index' %}">Logoff</a></li>
+     </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   </nav>
-  
-  <h1>{{user.first_name}} {{user.last_name}}</h1>
-  <p><a href="{% url 'edit' %}">Edit Profile</a></p>
-  <p>User ID:</p>
-  <p>#{{user.id}}</p>
-  <p>Email address:</p>
-  <p>{{user.email}}</p>
-  <p>Description:</p>
-  <p>{{user.email}}</p>
-
-
-  <form action="{% url 'new_message'%}" method="post">
-  	<textarea name='message'></textarea>
-  	<input type='submit' value='Post'>
-  </form>
-  {% for message in messages%}
-  <p>{{message.user.first_name}} wrote:</p>
-  <p>{{message.message}}</p>
-	  {% for comment in comments %}
+  <div class='container'>
+	  <div class='row'>
+	  	<div class='col-md-6'><h3>{{user.first_name}} {{user.last_name}}</h3></div>
+	  	<div class='col-md-3 col-md-offset-3'><h3><a href="{% url 'edit' %}">Edit Profile</a></h3></p></div>
+	  </div>
+	  <div class='row'>
+		  <div class='col-md-2'><p>Registered at:</p></div>
+		  <div class='col-md-2'><p>{{user.created_at}}</p></div>
+	  </div>
+	  <div class='row'>
+	  	<div class='col-md-2'><p>User ID:</p></div>
+	 	<div class='col-md-2'><p>#{{user.id}}</p></div>
+	 </div>
+	 <div class='row'>
+	  	<div class='col-md-2'><p>Email address:</p></div>
+	 	<div class='col-md-2'><p>{{user.email}}</p></div>
+	 </div>
+	  <div class='row'>
+	  	<div class='col-md-2'><p>Description:</p></div>
+	 	<div class='col-md-2'><p>{{user.description}}</p></div>
+	 </div>
+	 <div class='row'>
+	  	<div class='col-md-4'>
+	  	<form action="{% url 'new_message'%}" method="post">
+	  		<textarea name='message'></textarea>
+	  		<input type='submit' value='Post'>
+  		</form>
+  		</div>
+	 </div>
+	 {% for message in messages%}
+	 <div class='row'>
+	  	<div class='col-md-4'><p>{{message.user.first_name}} wrote:</p></div>
+	 </div>
+	 <div class='row'>
+	  	<div class='col-md-4'><p>{{message.message}} wrote:</p></div>
+	 </div>
+	 {% for comment in comments %}
 	  	{% if message.id = comment.message.id %}
-	  		<p>{{comment.user.first_name}} wrote:</p>
-	  		<p>{{comment.comment}}</p>
-	  	{% endif %}
-	  {% endfor %}
-	<form action="{% url 'new_comment' id=message.id%}" method="post">
-	  	<textarea name='comment'></textarea>
-  		<input type='submit' value='Post'>
-	  </form>
+	  	<div class='row'>
+	  		<div class='col-md-4'><p>{{comment.user.first_name}} wrote:</p></div>
+	 	</div>
+	 	{% endif %}
+	{% endfor %}
+	<div class='row'>
+	  	<div class='col-md-4'>
+			<form action="{% url 'new_comment' id=message.id%}" method="post">
+			  	<textarea name='comment'></textarea>
+		  		<input type='submit' value='Post'>
+			</form>
+		</div>
+	</div>
   {% endfor %}
+  </div>
+
+ 
+	
 </body>
 </html>

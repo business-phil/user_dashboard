@@ -56,9 +56,9 @@ def show(request, user_id):
     comments = Comment.objects.all()
     user = User.objects.get(id=user_id)
     context = {
-        'user' = user,
-        'messages' = messages,
-        'comments' = comments
+        'user':user,
+        'messages':messages,
+        'comments':comments
     }
     return render(request, 'dashboard/show.html')
 # POST request for adding message
