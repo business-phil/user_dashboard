@@ -5,6 +5,34 @@
     <title>New User | User Dashboard</title>
 </head>
 <body>
+	<div id='header'>
+		<ul>
+			<li> Test App </li>
+			<li><a href="{% url 'dashboard:index' %}"> Dashboard </a></li>
+			<li> <a href="{% url 'dashboard:show' user.id=request.session.user_id %}"> Profile </a> </li>
+			<li> <a href="{% url 'login:index' %}"> Log off </a> </li>
+		</ul>
+	</div>
+	<div id="create_new">
+        <h3> Add a new User</h3> 
+        <form action="{% url 'dashboard:index' %}" method="post"> {% csrf_token %}
+        	<input type='submit' value='Return to Dashboard'>
+        </form>
 
+        <form class="" action="{% url 'dashboard:create_admin' %}" method="post"> {% csrf_token %}
+            <p> Email </p>
+            <input type = 'text'  name = 'email'>
+            <p> First Name </p>
+            <input type = 'text'  name = 'first_name'>
+            <p> Last Name </p>
+            <input type = 'text' name = 'last_name'>
+           <p>Password:</p> 
+            <input type = 'password' name = 'password'>
+           <p>Confirm Password:</p> 
+            <input type = 'password' name = 'conf_password'>
+            <br>
+            <input type = 'submit' value="Create">
+        </form>
+    </div>
 </body>
 </html>

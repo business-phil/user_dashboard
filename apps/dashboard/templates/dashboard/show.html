@@ -75,7 +75,7 @@
 	  	<div class='col-md-4'><p>{{message.message}} wrote:</p></div>
 	 </div>
 	 {% for comment in comments %}
-	  	{% if message.id = comment.message.id %}
+	  	{% if message.id == comment.message.id %}
 	  	<div class='row'>
 	  		<div class='col-md-4'><p>{{comment.user.first_name}} wrote:</p></div>
 	 	</div>
@@ -92,7 +92,7 @@
   {% endfor %}
   </div>
 
- 
-	
+
+
 </body>
 </html>

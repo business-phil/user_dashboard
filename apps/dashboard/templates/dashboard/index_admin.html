@@ -2,9 +2,45 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Admin Home | User Dashboard</title>
+    <title>Home | User Dashboard</title>
+    {% load staticfiles %}
 </head>
 <body>
+	<div id='header'>
+		<ul>
+			<li> Test App </li>
+			<li><a href="{% url 'dashboard:index' %}"> Dashboard </a></li>
+			<li> <a href="{% url 'dashboard:show' user.id= request.session.user_id %}"> Profile </a> </li>
+			<li> <a href="{% url 'login:index' %}"> Log off </a> </li>
+		</ul>
+	</div>
+	<div id='body'>
+		<h4> Manage Users </h4>
+		<form action="{% url 'dashboard:new_admin' %}" method= 'POST'> {% csrf_token %}
+			<input type='submit' value='Add New'>
+		</form>
+		<table>
+			<tr>
+				<th> ID</th>
+				<th> Name </th>
+				<th> email </th>
+				<th> created_at </th>
+				<th> user_level </th>
+				<th> Actions </th>
+			</tr>
+			{% for user in users %}
+			<tr>
+				<td>{{user.id}} </td>
+				<td>{{user.first_name}} {{user.last_name}} </td>
+				<td>{{user.email}} </td>
+				<td>{{user.created_at}} </td>
+				<td>{{user.user_level}} </td>
+				<td>{{user.email}} </td>
+				<td> <a href="{% url 'dashboard:remove_admin' user.id %}"> Delete</a> <a href="{% url 'dashboard:edit_admin' user.id %}"> Edit </a> </td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
 
 </body>
 </html>
