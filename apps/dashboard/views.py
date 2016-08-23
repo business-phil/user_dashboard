@@ -3,11 +3,13 @@ from django.views.generic import View
 
 # non-admin home page
 def index(request):
-    pass
+    if user.user_level == 'user'
+    return redirect(reverse('dashboard:index'))
 
 # admin home page
 def index_admin(request):
-    pass
+    if user.user_level == 'admin'
+    return redirect(reverse('dashboard:index_admin'))
 
 # users page to edit own info
 def edit(request):
