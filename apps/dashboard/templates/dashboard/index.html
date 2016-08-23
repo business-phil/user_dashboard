@@ -10,7 +10,7 @@
 		<ul>
 			<li> Test App </li>
 			<li><a href="{% url 'dashboard:index' %}"> Dashboard </a></li>
-			<li> <a href="{% url 'dashboard:show' user.id %}"> Profile </a> </li>
+			<li> <a href="{% url 'dashboard:show' user.id=request.session.user_id %}"> Profile </a> </li>
 			<li> <a href="{% url 'login:index' %}"> Log off </a> </li>
 		</ul>
 	</div>
