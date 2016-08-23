@@ -32,7 +32,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   </nav>
-  
+
   <div class='container'>
 	  <div class='row'>
 	  	<div class='col-md-6'><h3>{{user.first_name}} {{user.last_name}}</h3></div>
@@ -57,6 +57,7 @@
 	 <div class='row'>
 	  	<div class='col-md-4'>
 	  	<form action="{% url 'new_message'%}" method="post">
+	  		{% csrf_token %}
 	  		<textarea name='message' class='form-control' rows='3'></textarea>
 	  		<br>
 	  		<button type='submit' class='btn btn-success btn-sm'>Submit</button>
@@ -80,6 +81,7 @@
 	<div class='row'>
 	  	<div class='col-md-4'>
 			<form action="{% url 'new_comment' id=message.id%}" method="post">
+				{% csrf_token %}
 			  	<textarea name='comment' class='form-control' rows='3'></textarea>
 			  	<br>
 		  		<button type='submit' class='btn btn-success btn-sm'>Submit</button>
