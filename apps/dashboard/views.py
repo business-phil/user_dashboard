@@ -18,7 +18,33 @@ def index(request):
 
 # users page to edit own info
 def edit(request):
-    pass
+    user = User.objects.get(id=request.session['user_id'])
+
+    if user.user_level = 'user':
+        editForm = EditForm()
+        editPasswordForm = EditPasswordForm()
+        editDescriptionForm = EditDescriptionForm()
+        editStr = 'profile'
+        title = 'Profile'
+        #show div id=EditDescriptionForm
+
+    else:
+        editForm = EditAdminForm()
+        editPasswordForm = EditPasswordAdminForm()
+        editDescriptionForm = ''
+        editStr = "user #" + str(request.session['user_id'])
+        title = 'User'
+        #hide div id= EditdescriptionForm
+
+    context = {
+        'editForm': editForm,
+        'editPasswordForm': editPasswordForm,
+        'editDescriptionForm': editDescriptionForm,
+        'editStr': editStr,
+        'title':title,
+        #show/hide div id=EditDescriptionForm
+    }
+    return render(request, 'edit.html', context)
 
 # POST request for user editing info
 def edit_info(request):  #POST REQUEST
