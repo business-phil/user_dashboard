@@ -60,7 +60,7 @@ def show(request, user_id):
         'messages': messages,
         'comments': comments
     }
-    return render(request, 'dashboard/show.html')
+    return render(request, 'dashboard/show.html', context)
 # POST request for adding message
 def new_message(request):  #POST REQUEST
     user = User.objects.get(id=request.session['user_id'])
