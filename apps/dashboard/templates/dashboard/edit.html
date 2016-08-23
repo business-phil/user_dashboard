@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Edit Profile | User Dashboard</title>
+    <title>Edit {{title}} | User Dashboard</title>
 </head>
 <body>
+	<h1>Edit {{editStr}}</h1>
+	<div id=editInfoForm>
+	<p>Edit Information</p>
+		<form action="{url 'edit_user' }" method="POST">
+			{% csrf_token %}
+			{{editInfoForm.as_p}}
+			<input type="submit" value="Save">
+		</form>	
+	</div>
+	<div id="editPasswordForm">
+	<p>Change Password</p>
+		<form action="{url 'edit_user}" method="POST">
+			{% csrf_token %}
+			{{editPasswordForm.as_p}}
+			<input type="submit" Value="Update Password">
+		</form>
+	</div>
+	<div id="editDescritionForm">
+	<p>Edit Description</p>
+		<form action="{url 'edit_user}" method="POST">
+			{% csrf_token %}
+			{{editDescriptionForm}}
+			<input type="submit" value="Save">
+		</form>
+	</div>
 
 </body>
 </html>
