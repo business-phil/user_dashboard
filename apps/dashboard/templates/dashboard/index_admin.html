@@ -30,12 +30,12 @@
 			</tr>
 			{% for user in users %}
 			<tr>
-				<td>{{user.id}} </td> 
-				<td>{{user.first_name}} {{user.last_name}} </td>  
-				<td>{{user.email}} </td> 
-				<td>{{user.created_at}} </td> 
-				<td>{{user.user_level}} </td> 
-				<td>{{user.email}} </td> 
+				<td>{{user.id}} </td>
+				<td>{{user.first_name}} {{user.last_name}} </td>
+				<td>{{user.email}} </td>
+				<td>{{user.created_at}} </td>
+				<td>{{user.user_level}} </td>
+				<td>{{user.email}} </td>
 				<td> <a href="{% url 'dashboard:remove_admin' user.id %}"> Delete</a> <a href="{% url 'dashboard:edit_admin' user.id %}"> Edit </a> </td>
 			</tr>
 			{% endfor %}

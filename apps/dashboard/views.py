@@ -20,7 +20,7 @@ def index(request):
 def edit(request):
     user = User.objects.get(id=request.session['user_id'])
 
-    if user.user_level = 'user':
+    if user.user_level == 'user':
         editForm = EditForm()
         editPasswordForm = EditPasswordForm()
         editDescriptionForm = EditDescriptionForm()
@@ -51,7 +51,7 @@ def edit_info(request):  #POST REQUEST
     pass
 
 # POST request for user editing password
-def edit_pw(request):  #POST REQUESTupda
+def edit_pw(request):  #POST REQUEST
     pass
 
 # POST request for user editing description
@@ -72,15 +72,15 @@ def edit_pw_admin(request, user_id):  #POST REQUEST
 
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):  #POST REQUEST
-    User.objects.filter(user_id=user_id).delete() 
+    User.objects.filter(user_id=user_id).delete()
     return redirect(reverse('dashboard:index_admin')) #after user is created - redirects to the admin user dashboard
 
 # admin page to create new user
 def new_admin(request):
     return render(request, 'dashboard/new_admin.html')
-    
+
 # POST link for new user form (admin only)
-def create_admin(request): 
+def create_admin(request):
     User.objects.create(email= request.POST['email'], first_name = request.POST['first_name'], last_name= request.POST['last_name'], password= request.POST['password'])
     return redirect(reverse('dashboard:index_admin'))
 

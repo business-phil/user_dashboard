@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    # url(r'^admin$', views.index_admin, name='index_admin'),
     url(r'^edit$', views.edit, name='edit'),
     #url(r'^edit_info$', views.edit_info, name='edit_info'),  #POST
     url(r'^edit_pw$', views.edit_pw, name='edit_pw'),  #POST
