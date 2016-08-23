@@ -13,7 +13,7 @@ def index_admin(request):
 def edit(request):
     user = User.objects.get(id=request.session['user_id'])
 
-    if user.user_level = 'user':
+    if user.user_level == 'user':
         editForm = EditForm()
         editPasswordForm = EditPasswordForm()
         editDescriptionForm = EditDescriptionForm()
