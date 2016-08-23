@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.core.urlresolvers import reverse
 
 # non-admin home page
 def index(request):
@@ -51,15 +52,29 @@ def create_admin(request):  #POST REQUEST
 
 # show user wall
 def show(request, user_id):
-    pass
-
+    messages = Message.objects.all()
+    comments = Comment.objects.all()
+    user = User.objects.get(id=user_id)
+    context = {
+        'user' = user,
+        'messages' = messages,
+        'comments' = comments
+    }
+    return render(request, 'dashboard/show.html')
 # POST request for adding message
 def new_message(request):  #POST REQUEST
-    pass
+    user = User.objects.get(id=request.session['user_id'])
+    message = request.POST['message']
+    Message.objects.create(user=user, message=message)
+    return redirect(reverse('show'))
 
 # POST request for adding comment
 def new_comment(request, message_id):  #POST REQUEST
-    pass
+    user = User.objects.get(id=request.session['user_id'])
+    message = Message.objects.get(id=message_id)
+    comment = request.POST['comment']
+    Comment.objects.create(user=user, message=message, comment=comment)
+    return redirect(reverse('show'))
 
 '''
 TO BE ADDED:
