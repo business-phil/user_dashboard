@@ -16,7 +16,7 @@
 	</div>
 	<div id='body'>
 		<h4> Manage Users </h4>
-		<form action="{% url 'dashboard:create_admin' %}" method= 'POST'> {% csrf_token %}
+		<form action="{% url 'dashboard:new_admin' %}" method= 'POST'> {% csrf_token %}
 			<input type='submit' value='Add New'>
 		</form>
 		<table>
@@ -28,7 +28,7 @@
 				<th> user_level </th>
 				<th> Actions </th>
 			</tr>
-			{% for user in user %}
+			{% for user in users %}
 			<tr>
 				<td>{{user.id}} </td> 
 				<td>{{user.first_name}} {{user.last_name}} </td>  
