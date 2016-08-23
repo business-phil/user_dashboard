@@ -3,8 +3,97 @@
 <head>
     <meta charset="utf-8">
     <title>User Wall | User Dashboard</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static dashboard/css/style.css %}">
+
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+  	<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">User Dashboard</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="{% url 'index' %}">Dashboard<span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'show' user_id=request.session.user_id %}">Profile</a></li>
+      </ul>
+
+     <ul class="nav navbar-nav navbar-right">
+     	<li><a href="{% url 'login:index' %}">Logoff</a></li>
+     </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+  <div class='container'>
+	  <div class='row'>
+	  	<div class='col-md-6'><h3>{{user.first_name}} {{user.last_name}}</h3></div>
+	  	<div class='col-md-3 col-md-offset-3'><h3><a href="{% url 'edit' %}">Edit Profile</a></h3></p></div>
+	  </div>
+	  <div class='row'>
+		  <div class='col-md-2'><p>Registered at:</p></div>
+		  <div class='col-md-2'><p>{{user.created_at}}</p></div>
+	  </div>
+	  <div class='row'>
+	  	<div class='col-md-2'><p>User ID:</p></div>
+	 	<div class='col-md-2'><p>#{{user.id}}</p></div>
+	 </div>
+	 <div class='row'>
+	  	<div class='col-md-2'><p>Email address:</p></div>
+	 	<div class='col-md-2'><p>{{user.email}}</p></div>
+	 </div>
+	  <div class='row'>
+	  	<div class='col-md-2'><p>Description:</p></div>
+	 	<div class='col-md-2'><p>{{user.description}}</p></div>
+	 </div>
+	 <div class='row'>
+	  	<div class='col-md-4'>
+	  	<form action="{% url 'new_message'%}" method="post">
+	  		<textarea name='message'></textarea>
+	  		<input type='submit' value='Post'>
+  		</form>
+  		</div>
+	 </div>
+	 {% for message in messages%}
+	 <div class='row'>
+	  	<div class='col-md-4'><p>{{message.user.first_name}} wrote:</p></div>
+	 </div>
+	 <div class='row'>
+	  	<div class='col-md-4'><p>{{message.message}} wrote:</p></div>
+	 </div>
+	 {% for comment in comments %}
+	  	{% if message.id == comment.message.id %}
+	  	<div class='row'>
+	  		<div class='col-md-4'><p>{{comment.user.first_name}} wrote:</p></div>
+	 	</div>
+	 	{% endif %}
+	{% endfor %}
+	<div class='row'>
+	  	<div class='col-md-4'>
+			<form action="{% url 'new_comment' id=message.id%}" method="post">
+			  	<textarea name='comment'></textarea>
+		  		<input type='submit' value='Post'>
+			</form>
+		</div>
+	</div>
+  {% endfor %}
+  </div>
+
+
 
 </body>
 </html>
