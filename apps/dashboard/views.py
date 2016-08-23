@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
-# non-admin home page
+# user/admin home page
 def index(request):
-    if user.user_level == 'user'
-    return redirect(reverse('dashboard:index'))
-
-# admin home page
-def index_admin(request):
-    if user.user_level == 'admin'
-    return redirect(reverse('dashboard:index_admin'))
+    if user.user_level == 'user':
+        return redirect(reverse('dashboard:index'))
+    else:
+        return redirect(reverse('dashboard:index_admin'))
 
 # users page to edit own info
 def edit(request):
@@ -48,8 +45,8 @@ def new_admin(request):
     pass
 
 # POST link for new user form (admin only)
-def create_admin(request):  #POST REQUEST
-    pass
+# def create_admin(request): #NOT NEEDED - redirected to admin page after user creation
+    
 
 # show user wall
 def show(request, user_id):
