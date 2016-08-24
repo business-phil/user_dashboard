@@ -1,25 +1,25 @@
-from django.forms import ModelForm
+from django import forms
 from .models import User
 
-class EditForm(ModelForm):
-	class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name']
+class EditForm(forms.Form):
+	email = forms.EmailField()
+	first_name = forms.CharField(max_length=45)
+	last_name = forms.CharField(max_length=45)
 
-class EditAdminForm(ModelForm):
-	class Meta:
-		model = User
-		fields = ['email', 'first_name', 'last_name', 'user_level']
+class EditAdminForm(forms.Form):
+	email = forms.EmailField()
+	first_name = forms.CharField(max_length=45)
+	last_name = forms.CharField(max_length=45)
+	user_level = forms.CharField(max_length=45)
+	
 
-class EditPasswordForm(ModelForm):
-	class Meta:
-        model = User
-        fields = ['password', 'password']
+class EditPasswordForm(forms.Form):
+	password = forms.CharField(max_length=45, widget=forms.PasswordInput)
+	confirm_password = forms.CharField(max_length=45, widget=forms.PasswordInput)
 
-class EditDescriptionForm(ModelForm):
-	class Meta:
-        model = User
-        fields = ['description']  
-		
+
+class EditDescriptionForm(forms.Form):
+	description = forms.CharField(max_length=255) 
+
 		
 

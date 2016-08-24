@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Edit {{title}} | User Dashboard</title>
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static dashboard/css/style.css %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Optional theme -->
@@ -30,30 +30,34 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-	<h1>Edit {{editStr}}</h1>
-	<div id=editInfoForm>
-	<p>Edit Information</p>
-		<form action="{url 'dashboard:edit_user' }" method="POST">
-			{% csrf_token %}
-			{{editInfoForm.as_p}}
-			<input type="submit" value="Save">
-		</form>
-	</div>
-	<div id="editPasswordForm">
-	<p>Change Password</p>
-		<form action="{url 'dashboard:edit_user}" method="POST">
-			{% csrf_token %}
-			{{editPasswordForm.as_p}}
-			<input type="submit" Value="Update Password">
-		</form>
-	</div>
-	<div id="editDescritionForm">
-	<p>Edit Description</p>
-		<form action="{url 'dashboard:edit_user}" method="POST">
-			{% csrf_token %}
-			{{editDescriptionForm}}
-			<input type="submit" value="Save">
-		</form>
+    <div class='container'>
+
+		<h1>Edit {{editStr}}</h1>
+		<div id=editInfoForm>
+		<p>Edit Information</p>
+			<form action="{% url 'dashboard:edit_info' user_id %}" method="POST">
+				{% csrf_token %}
+				{{editInfoForm.as_table}}
+				<button type='submit' class='btn btn-success btn-sm'>Save</button>
+			</form>
+		</div>
+		<div id="editPasswordForm">
+		<p>Change Password</p>
+			<form action="{% url 'dashboard:edit_pw' user_id %}" method="POST">
+				{% csrf_token %}
+				{{editPasswordForm.as_table}}
+				<button type='submit' class='btn btn-success btn-sm'>Update Password</button>
+			</form>
+		</div>
+		<div id="editDescritionForm">
+		<p>Edit Description</p>
+			<form action="{% url 'dashboard:edit_desc' user_id %}" method="POST">
+				{% csrf_token %}
+				{{editDescriptionForm.as_table}}
+				<button type='submit' class='btn btn-success btn-sm'>Save</button>
+			</form>
+		</div>
+
 	</div>
 </body>
 </html>
