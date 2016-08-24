@@ -41,7 +41,7 @@ def edit(request, user_id):
     else:
         editForm = EditAdminForm()
         editDescriptionForm = ''
-        editStr = "user #" + str(request.session['user_id'])
+        editStr = "user #" + str(user_id)
         title = 'User'
         #hide div id= EditdescriptionForm
     #create editPasswordForm 
@@ -54,6 +54,7 @@ def edit(request, user_id):
         'editDescriptionForm': editDescriptionForm,
         'editStr': editStr,
         'title':title,
+        'user_id': user_id,
         #show/hide div id=EditDescriptionForm
     }
     return render(request, 'edit.html', context)

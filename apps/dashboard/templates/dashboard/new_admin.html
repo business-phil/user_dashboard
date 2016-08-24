@@ -3,41 +3,71 @@
 <head>
     <meta charset="utf-8">
     <title>New User | User Dashboard</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
+    <link crossorigin="anonymous" href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity=
+    "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    rel="stylesheet"><!-- Optional theme -->
+    <link crossorigin="anonymous" href=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity=
+    "sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
+
+    <script src=
+    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
 </head>
 <body>
-	<div id='header'>
-		<ul>
-			<li> Test App </li>
-			<li><a href="{% url 'dashboard:index' %}"> Dashboard </a></li>
-			<li> <a href="{% url 'dashboard:show' user.id=request.session.user_id %}"> Profile </a> </li>
-			<li> <a href="{% url 'login:index' %}"> Log off </a> </li>
-		</ul>
-	</div>
-	<div id="create_new">
-        <h3> Add a new User</h3> 
-        <form action="{% url 'dashboard:index' %}" method="post"> {% csrf_token %}
-        	<input type='submit' value='Return to Dashboard'>
-        </form>
-
-        <form class="" action="{% url 'dashboard:create_admin' %}" method="post"> {% csrf_token %}
-            <p> Email </p>
-            <input type = 'text'  name = 'email'>
-            <p> First Name </p>
-            <input type = 'text'  name = 'first_name'>
-            <p> Last Name </p>
-            <input type = 'text' name = 'last_name'>
-           <p>Password:</p> 
-            <input type = 'password' name = 'password'>
-           <p>Confirm Password:</p> 
-            <input type = 'password' name = 'conf_password'>
-            <br>
-            <input type = 'submit' value="Create">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href=
+                "{%%20url%20'dashboard:index'%20%}">USER DASHBOARD</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id=
+            "bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href=
+                        "{%%20url%20'dashboard:show'%20request.session.user_id%20%}">
+                        PROFILE<span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{%%20url%20'login:index'%20%}">LOGOFF</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col-md-3'>
+                <h4>Add a New User</h4>
+            </div>
+            <div class='col-md-4 col-md-offset-4'>
+                <form action="{%%20url%20'dashboard:index'%20%}" class=
+                "form-inline" method='post'>
+                    {% csrf_token %} <button class='btn btn-primary btn-sm'
+                    type='submit'>Return to Dashboard</button>
+                </form>
+            </div>
+        </div>
+        <form action="{%%20url%20'dashboard:create_admin'%20%}" class=""
+        method="post">
+            {% csrf_token %}
+            <p>Email:</p><input name='email' type='text'>
+            <p>First Name:</p><input name='first_name' type='text'>
+            <p>Last Name:</p><input name='last_name' type='text'>
+            <p>Password:</p><input name='password' type='password'>
+            <p>Confirm Password:</p>
+            <p><input name='conf_password' type='password'></p><button class=
+            'btn btn-success btn-sm' type='submit'>Create</button>
+            <p></p>
         </form>
     </div>
 </body>
