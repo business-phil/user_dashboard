@@ -53,7 +53,7 @@ class UserManager(models.Manager):
         else:
             return (False, "Invalid email address")
 
-    def editInfo(self, user_id, email, first_name, last_name, user_level='user'):
+    def editInfo(self, user_id, email, first_name, last_name, csrfmiddlewaretoken, user_level=['user']):
         messageList = []
         #Validate email
         email = email[0]
@@ -71,6 +71,8 @@ class UserManager(models.Manager):
             messagelist.append("Last Name must be at least 2 characters long")
         elif search(r'[^a-zA-Z]', last_name):
             messagelist.append("Last Name must only contain letters")
+        
+        user_level = user_level[0]
         #validations
         if len(messageList) > 0:
             return (False, messageList)
@@ -79,12 +81,30 @@ class UserManager(models.Manager):
 
         return (True, ["User Info updated successfully"])
 
-    def editPassword(self, ):
-        return (True, )
+    def editPassword(self, user_id, password, confirm_password, csrfmiddlewaretoken):
+        messagelist = []
+        # Validate password
+        password = password[0]
+        if len(password) < 8:
+            messagelist.append("Password must be at least 8 characters long")
+        # Validate conf_password
+        conf_password = confirm_password[0]
+        if conf_password != password:
+            messagelist.append("Password does not match")
+        # Check if all validation checks passed
+        if len(messagelist) > 0:
+            return(False, messagelist)
 
-    def editDescription(self, description):
+        pw_hash = hashpw(password.encode(), gensalt())
 
-        return (True, errorList)
+        self.filter(id=user_id).update(password=pw_hash)
+
+        return (True, ["User Info updated successfully"])
+
+    def editDescription(self, user_id, description):
+        #no validations
+        self.filter(id=user_id).update(description=str(description))
+        return (True, ["Description Successfully Updated"])
 
 class User(models.Model):
     email = models.EmailField(unique=True)

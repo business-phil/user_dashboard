@@ -66,29 +66,21 @@ def edit(request, user_id):
 
 # POST request for user editing info
 def edit_info(request, user_id):  #POST REQUEST
-    editStatus= User.userManager.editInfo(user_id, **request.POST)
+    editStatus = User.userManager.editInfo(user_id, **request.POST)
     print editStatus[1]
     return redirect(reverse('dashboard:index'))
 
 # POST request for user editing password
 def edit_pw(request, user_id):  #POST REQUEST
+    editStatus = User.userManager.editPassword(user_id, **request.POST)
+    print editStatus[1]
     return redirect(reverse('dashboard:index'))
 
 # POST request for user editing description
 def edit_desc(request, user_id):  #POST REQUEST
+    editStatus = User.userManager.editDescription(user_id, request.POST['description'])
+    print editStatus[1]
     return redirect(reverse('dashboard:index'))
-
-# admin page to edit other users info
-def edit_admin(request, user_id):
-    pass
-
-# POST request for admin editing user info
-def edit_info_admin(request, user_id):  #POST REQUEST
-    pass
-
-# POST request for admin editing user password
-def edit_pw_admin(request, user_id):  #POST REQUEST
-    pass
 
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):  #POST REQUEST
