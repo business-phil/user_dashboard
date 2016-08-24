@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.urlresolvers import reverse
 from .models import User, Message, Comment
-from ..login.forms import RegisterForm
+from .forms import RegisterForm, EditForm, EditAdminForm, EditPasswordForm, EditDescriptionForm
 
 # user/admin home page
 def index(request):
@@ -45,7 +45,7 @@ def edit(request, user_id):
         editStr = "user #" + str(user_id)
         title = 'User'
         #hide div id= EditdescriptionForm
-    #create editPasswordForm 
+    #create editPasswordForm
     #NOTE: it is the same for admin and users
     editPasswordForm = EditPasswordForm()
 
@@ -58,19 +58,18 @@ def edit(request, user_id):
         'user_id': user_id,
         #show/hide div id=EditDescriptionForm
     }
-    return render(request, 'edit.html', context)
+    return render(request, 'dashboard/edit.html', context)
 
 # POST request for user editing info
-def edit_info(request):  #POST REQUEST
-    pass
-
+def edit_info(request, user_id):  #POST REQUEST
+    return redirect(reverse('dashboard:index'))
 # POST request for user editing password
-def edit_pw(request):  #POST REQUEST
-    pass
+def edit_pw(request, user_id):  #POST REQUEST
+    return redirect(reverse('dashboard:index'))
 
 # POST request for user editing description
-def edit_desc(request):  #POST REQUEST
-    pass
+def edit_desc(request, user_id):  #POST REQUEST
+    return redirect(reverse('dashboard:index'))
 
 # admin page to edit other users info
 def edit_admin(request, user_id):
@@ -87,7 +86,7 @@ def edit_pw_admin(request, user_id):  #POST REQUEST
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):  #POST REQUEST
     User.objects.get(id= user_id).delete()
-    return redirect(reverse('dashboard:index')) 
+    return redirect(reverse('dashboard:index'))
 
 # admin page to create new user
 def new_admin(request):
