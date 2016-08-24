@@ -34,26 +34,26 @@
 
 		<h1>Edit {{editStr}}</h1>
 		<div id=editInfoForm>
-		<p>Edit Information</p>
+		<h4>Edit Information</h4>
 			<form action="{% url 'dashboard:edit_info' user_id %}" method="POST">
 				{% csrf_token %}
-				{{editInfoForm.as_table}}
+				{{editForm.as_p}}
 				<button type='submit' class='btn btn-success btn-sm'>Save</button>
 			</form>
 		</div>
 		<div id="editPasswordForm">
-		<p>Change Password</p>
+		<h4>Change Password</h4>
 			<form action="{% url 'dashboard:edit_pw' user_id %}" method="POST">
 				{% csrf_token %}
-				{{editPasswordForm.as_table}}
+				{{editPasswordForm.as_p}}
 				<button type='submit' class='btn btn-success btn-sm'>Update Password</button>
 			</form>
 		</div>
-		<div id="editDescritionForm">
-		<p>Edit Description</p>
+		<div {{hidden}} id="editDescritionForm">
+		<h4>Edit Description</h4>
 			<form action="{% url 'dashboard:edit_desc' user_id %}" method="POST">
 				{% csrf_token %}
-				{{editDescriptionForm.as_table}}
+				{{editDescriptionForm.as_p}}
 				<button type='submit' class='btn btn-success btn-sm'>Save</button>
 			</form>
 		</div>

@@ -53,6 +53,39 @@ class UserManager(models.Manager):
         else:
             return (False, "Invalid email address")
 
+    def editInfo(self, user_id, email, first_name, last_name, user_level='user'):
+        messageList = []
+        #Validate email
+        email = email[0]
+        if not match(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$', email):
+            messagelist.append("Invalid email address")
+        # Validate first_name
+        first_name = first_name[0]
+        if len(first_name) < 2:
+            messagelist.append("First Name must be at least 2 characters long")
+        elif search(r'[^a-zA-Z]', first_name):
+            messagelist.append("First Name must only contain letters")
+        # Validate last_name
+        last_name = last_name[0]
+        if len(last_name) < 2:
+            messagelist.append("Last Name must be at least 2 characters long")
+        elif search(r'[^a-zA-Z]', last_name):
+            messagelist.append("Last Name must only contain letters")
+        #validations
+        if len(messageList) > 0:
+            return (False, messageList)
+
+        self.filter(id=user_id).update(email=email, first_name=first_name, last_name=last_name, user_level=user_level)
+
+        return (True, ["User Info updated successfully"])
+
+    def editPassword(self, ):
+        return (True, )
+
+    def editDescription(self, description):
+
+        return (True, errorList)
+
 class User(models.Model):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=45)
