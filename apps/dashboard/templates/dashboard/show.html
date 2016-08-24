@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>User Wall | User Dashboard</title>
     <!-- {% load staticfiles %} -->
-    <link rel="stylesheet" type="text/css" href="{% static dashboard/css/style.css %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
 
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -18,7 +18,7 @@
   	<div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'index' %}">USER DASHBOARD</a>
+      <a class="navbar-brand" href="{% url 'dashboard:index' %}">USER DASHBOARD</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -82,7 +82,7 @@
 	{% endfor %}
 	<div class='row'>
 	  	<div class='col-md-4'>
-			<form action="{% url 'dashboard:new_comment' id=message.id%}" method="post">
+			<form action="{% url 'dashboard:new_comment' message.id%}" method="post">
 				{% csrf_token %}
 			  	<textarea name='comment' class='form-control' rows='3'></textarea>
 			  	<br>
