@@ -7,11 +7,31 @@ class EditForm(forms.Form):
 	first_name = forms.CharField(max_length=45)
 	last_name = forms.CharField(max_length=45)
 
+	def __init__(self, *args, **kwargs):
+		user = kwargs.pop('user', None)
+		super(EditForm, self).__init__( *args, **kwargs)
+		if user:
+			self.fields['email'].initial = user.email
+			self.fields['first_name'].initial = user.first_name
+			self.fields['last_name'].initial = user.last_name
+
+
+
+
 class EditAdminForm(forms.Form):
 	email = forms.EmailField()
 	first_name = forms.CharField(max_length=45)
 	last_name = forms.CharField(max_length=45)
-	user_level = forms.CharField(max_length=45)
+	user_level = forms.ChoiceField([('admin', 'admin'), ('user', 'user')])
+
+	def __init__(self, *args, **kwargs):
+		user = kwargs.pop('user', None)
+		super(EditAdminForm, self).__init__( *args, **kwargs)
+		if user:
+			self.fields['email'].initial = user.email
+			self.fields['first_name'].initial = user.first_name
+			self.fields['last_name'].initial = user.last_name
+			self.fields['user_level'].initial = user.user_level
 
 
 class EditPasswordForm(forms.Form):
@@ -20,4 +40,10 @@ class EditPasswordForm(forms.Form):
 
 
 class EditDescriptionForm(forms.Form):
-	description = forms.CharField(max_length=255)
+	description = forms.CharField(max_length=255, widget=forms.Textarea, label='')
+
+	def __init__(self, *args, **kwargs):
+		user = kwargs.pop('user', None)
+		super(EditDescriptionForm, self).__init__( *args, **kwargs)
+		if user:
+			self.fields['description'].initial = user.description

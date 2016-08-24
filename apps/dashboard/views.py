@@ -21,30 +21,34 @@ def index(request):
 def edit(request, user_id):
     #get the user object for whomever is in session
     user = User.objects.get(id=request.session['user_id'])
-
+    print user_id, type(user_id)
+    print user.id, type(user.id)
     #if the user_level is 'user', create the appropiate forms and strings
-    if user.user_level == 'user':
-        editForm = EditForm()
-        editDescriptionForm = EditDescriptionForm()
+    if user.id == int(user_id) and user.user_level == 'user':
+        editForm = EditForm(user=user)
+        editDescriptionForm = EditDescriptionForm(user=user)
         editStr = 'profile'
         title = 'Profile'
-        #show div id=EditDescriptionForm
+        hidden = ''
+    elif user.id != int(user_id) and user.user_level == 'user':
+        return redirect(reverse('dashboard:edit', args=[user.id]))
     #if the user_level is 'admin' and he is trying to edit himself
     #then create the appropiate forms and strings
-    elif user.user_level == 'admin' and user.id == user_id:
-        editForm = EditAdminForm()
-        editDescriptionForm = EditDescriptionForm()
+    elif user.user_level == 'admin' and user.id == int(user_id):
+        editForm = EditAdminForm(user=user)
+        editDescriptionForm = EditDescriptionForm(user=user)
         editStr = 'profile'
         title = 'Profile'
-        #hide div id= EditdescriptionForm
+        hidden = ''
     #if the user_level is admin and he is trying to edit someone else
     #then create the appropiate forms and strings
     else:
-        editForm = EditAdminForm()
+        user = User.objects.get(id=user_id)
+        editForm = EditAdminForm(user=user)
         editDescriptionForm = ''
         editStr = "user #" + str(user_id)
         title = 'User'
-        #hide div id= EditdescriptionForm
+        hidden = 'hidden'
     #create editPasswordForm
     #NOTE: it is the same for admin and users
     editPasswordForm = EditPasswordForm()
@@ -56,32 +60,27 @@ def edit(request, user_id):
         'editStr': editStr,
         'title':title,
         'user_id': user_id,
-        #show/hide div id=EditDescriptionForm
+        'hidden': hidden,
     }
     return render(request, 'dashboard/edit.html', context)
 
 # POST request for user editing info
 def edit_info(request, user_id):  #POST REQUEST
+    editStatus = User.userManager.editInfo(user_id, **request.POST)
+    print editStatus[1]
     return redirect(reverse('dashboard:index'))
+
 # POST request for user editing password
 def edit_pw(request, user_id):  #POST REQUEST
+    editStatus = User.userManager.editPassword(user_id, **request.POST)
+    print editStatus[1]
     return redirect(reverse('dashboard:index'))
 
 # POST request for user editing description
 def edit_desc(request, user_id):  #POST REQUEST
+    editStatus = User.userManager.editDescription(user_id, request.POST['description'])
+    print editStatus[1]
     return redirect(reverse('dashboard:index'))
-
-# admin page to edit other users info
-def edit_admin(request, user_id):
-    pass
-
-# POST request for admin editing user info
-def edit_info_admin(request, user_id):  #POST REQUEST
-    pass
-
-# POST request for admin editing user password
-def edit_pw_admin(request, user_id):  #POST REQUEST
-    pass
 
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):  #POST REQUEST
