@@ -31,39 +31,36 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class='container'>
-
-		<h1>Edit {{editStr}}</h1>
-		<div id=editInfoForm>
-		<h4>Edit Information</h4>
-			<form action="{% url 'dashboard:edit_info' user_id %}" method="POST">
-				{% csrf_token %}
-                <table>
-				{{editForm.as_table}}
-                </table>
-				<button type='submit' class='btn btn-success btn-sm'>Save</button>
-			</form>
+			<div id=editInfoForm>
+			<h3 class='edit_info'>Edit Information</h3>
+				<form action="{% url 'dashboard:edit_info' user_id %}" method="POST">
+					{% csrf_token %}
+	                <table class="edit_table">
+					{{editForm.as_table}}
+	                </table>
+					<button id="save_button" type='submit' class='btn btn-success btn-sm'>Save</button>
+				</form>
+			</div>
+			<div id="editPasswordForm">
+				<h3 class='edit_info'>Change Password</h3>
+					<form action="{% url 'dashboard:edit_pw' user_id %}" method="POST">
+						{% csrf_token %}
+		                <table>
+						{{editPasswordForm.as_table}}
+		                </table>
+						<button type='submit' class='btn btn-success btn-sm'>Update Password</button>
+					</form>
+			</div>
+			<div {{hidden}} id="editDescritionForm">
+				<h3 class='edit_info'>Edit Description</h3>
+				<form action="{% url 'dashboard:edit_desc' user_id %}" method="POST">
+					{% csrf_token %}
+	                <table>
+					{{editDescriptionForm.as_table}}
+	                </table>
+					<button type='submit' class='btn btn-success btn-sm'>Save</button>
+				</form>
+			</div>
 		</div>
-		<div id="editPasswordForm">
-		<h4>Change Password</h4>
-			<form action="{% url 'dashboard:edit_pw' user_id %}" method="POST">
-				{% csrf_token %}
-                <table>
-				{{editPasswordForm.as_table}}
-                </table>
-				<button type='submit' class='btn btn-success btn-sm'>Update Password</button>
-			</form>
-		</div>
-		<div {{hidden}} id="editDescritionForm">
-		<h4>Edit Description</h4>
-			<form action="{% url 'dashboard:edit_desc' user_id %}" method="POST">
-				{% csrf_token %}
-                <table>
-				{{editDescriptionForm.as_table}}
-                </table>
-				<button type='submit' class='btn btn-success btn-sm'>Save</button>
-			</form>
-		</div>
-
-	</div>
 </body>
 </html>
