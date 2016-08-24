@@ -13,20 +13,29 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h2>User Dashboard</h2>
-    <form class="form-inline" action="{% url 'login:login' %}" method="post">
-        {% csrf_token %}
-        {% for input in loginform %}
-            <div class="form-group">
-                {{ input.label_tag }}{{ input }}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand">USER DASHBOARD</a>
             </div>
-        {% endfor %}
-        <button class="btn btn-default btn-sm" type="submit">Log In</button>
-    </form>
+            <div class="nav navbar-nav navbar-right">
+                <form class="form-inline" action="{% url 'login:login' %}" method="post">
+                    {% csrf_token %}
+                    {% for input in loginform %}
+                        <div class="form-group">
+                            {{ input.label_tag }}{{ input }}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-default btn-sm" type="submit">Log In</button>
+                </form>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
     {% if messages %}
         <ul>
             {% for message in messages %}
-                <li>{{message}}</li>
+                <li>{{ message }}</li>
             {% endfor %}
         </ul>
     {% endif %}
