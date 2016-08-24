@@ -22,7 +22,7 @@ def register(request):
     else:
         for message in regstatus[1]:
             messages.warning(request, message)
-        return redirect(reverse('login:new_admin'))
+        return redirect(reverse('login:index'))
 
 # Submit login form
 def login(request):

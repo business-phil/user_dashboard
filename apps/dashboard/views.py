@@ -31,7 +31,7 @@ def edit(request, user_id):
         #show div id=EditDescriptionForm
     #if the user_level is 'admin' and he is trying to edit himself
     #then create the appropiate forms and strings
-    elif user.user_level == 'admin' and user.user_id == user_id:
+    elif user.user_level == 'admin' and user.id == user_id:
         editForm = EditAdminForm()
         editDescriptionForm = EditDescriptionForm()
         editStr = 'profile'
