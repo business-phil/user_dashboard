@@ -17,22 +17,37 @@ def index(request):
         return render(request, 'dashboard/index_admin.html', context)
 
 # users page to edit own info
-def edit(request):
+def edit(request, user_id):
+    #get the user object for whomever is in session
     user = User.objects.get(id=request.session['user_id'])
+
+    #if the user_level is 'user', create the appropiate forms and strings
     if user.user_level == 'user':
         editForm = EditForm()
-        editPasswordForm = EditPasswordForm()
         editDescriptionForm = EditDescriptionForm()
         editStr = 'profile'
         title = 'Profile'
         #show div id=EditDescriptionForm
+    #if the user_level is 'admin' and he is trying to edit himself
+    #then create the appropiate forms and strings
+    elif user.user_level == 'admin' and user.user_id == user_id:
+        editForm = EditAdminForm()
+        editDescriptionForm = EditDescriptionForm()
+        editStr = 'profile'
+        title = 'Profile'
+        #hide div id= EditdescriptionForm
+    #if the user_level is admin and he is trying to edit someone else
+    #then create the appropiate forms and strings
     else:
         editForm = EditAdminForm()
-        editPasswordForm = EditPasswordAdminForm()
         editDescriptionForm = ''
         editStr = "user #" + str(request.session['user_id'])
         title = 'User'
         #hide div id= EditdescriptionForm
+    #create editPasswordForm 
+    #NOTE: it is the same for admin and users
+    editPasswordForm = EditPasswordForm()
+
     context = {
         'editForm': editForm,
         'editPasswordForm': editPasswordForm,
