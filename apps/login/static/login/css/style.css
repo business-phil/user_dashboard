@@ -26,3 +26,44 @@ form.form-inline label {
 	color: white;
 }
 
+.align_center {
+	margin: 10px;
+	text-align: center;
+}
+
+.description {
+	margin: 10px;
+}
+
+.glyphicon{
+	font-size: 75px;
+	margin-top: 25px;
+}
+
+.glyphicon-cloud {
+	color: #294FF9;
+
+}
+
+.glyphicon-leaf {
+	color: #129B3D;
+}
+
+.glyphicon-fire {
+	color: #ED710C;
+}
+
+.glyphicon-tint {
+	color: #04C7C7;
+}
+
+.table_space label {
+	padding: 10px;
+}
+.btn {
+	margin-left: 10px;
+}
+
+.register_space{
+	margin-top: 40px;
+}

@@ -5,6 +5,9 @@
     <title>Home | User Dashboard</title> {% load staticfiles %}
 </head>
 <body>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
+    <!-- Latest compiled and minified CSS -->
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     rel="stylesheet"><!-- Optional theme -->
@@ -20,8 +23,7 @@
                 <a class="navbar-brand" href="{% url 'dashboard:index' %}">USER DASHBOARD</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id=
-            "bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="{% url 'dashboard:show' request.session.user_id %}">
@@ -38,18 +40,17 @@
     </nav>
     <div class='container-fluid'>
         <div class='row'>
-            <div class='col-md-4'>
-                <h4>Manage Users</h4>
+            <div class='col-md-6'>
+                <h3 class='less_margin'>Manage Users</h3>
             </div>
-            <div class='col-md-4 col-md-offset-4'>
-                <form action="{% url 'dashboard:new_admin' %}" class=
-                "form-inline" method='post'>
-                    {% csrf_token %} <button class='btn btn-primary btn-sm'
+          <!--   <div class='col-md-2 col-md-offset-1'>
+                <form action="{% url 'dashboard:new_admin' %}" class="form-inline" method='post'>
+                    {% csrf_token %} <button class='btn btn-success btn-sm'
                     type='submit'>Add New</button>
-                </form>
+                </form> -->
             </div>
             <table class="table table-bordered table-hover table-responsive">
-                <tr>
+                <tr class="success">
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -58,19 +59,24 @@
                     <th>Actions</th>
                 </tr>
                 {% for user in users %} 
-                <tr class="info">
+                <tr>
                     <td>{{user.id}}</td>
                     <td><a href="{%url 'dashboard:show' user.id%}">{{user.first_name}} {{user.last_name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.created_at}}</td>
                     <td>{{user.user_level}}</td>
                     <td>
-                        <a href= "{% url 'dashboard:remove_admin' user.id %}">Delete</a>
+                        <a href= "{% url 'dashboard:remove_admin' user.id %}">Delete</a>  |  
                         <a href="{% url 'dashboard:edit' user.id %}">Edit</a>
                     </td>
                 </tr>
                 {% endfor %}
             </table>
+              <div class='button_add'>
+                <form action="{% url 'dashboard:new_admin' %}"  method='post'>
+                    {% csrf_token %} 
+                    <button class='btn btn-success btn-md' type='submit'>Add New</button>
+                </form>
         </div><!-- end of container -->
     </div>
 </body>

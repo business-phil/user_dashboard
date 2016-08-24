@@ -6,6 +6,10 @@ nav{
 	color: red !important;
 }
 
+a:hover{
+	color: red !important;
+}
+
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a {
     color: #fff !important;
 }
@@ -20,4 +24,12 @@ textarea{
 
 .wall_content{
 	padding-left:10px;
+}
+
+.less_margin{
+	margin-top: 2px;
+}
+
+.table_add label{
+	padding: 10px;
 }

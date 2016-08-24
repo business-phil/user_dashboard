@@ -32,26 +32,50 @@
             </div>
         </div><!-- /.container-fluid -->
     </nav>
-    <h2>Welcome to the User Dashboard!</h2>
-    <div class="row">
-        <div class="col-md-3">
-            <h4>Cool stuff!</h4>
-            <p>Here's a description of one of the cool things that we can do on User Dashboard!</p>
+    <div class='container'>
+        <div class="description">
+            <h2>Welcome to the User Dashboard!</h2>
+                <div class="row">
+                <div class="col-md-6">
+                    <h4> The User Dashboard allows you to stay connected with other members in the community. Sign up now to receive and share the most up-to-date news!</h4>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-3">
+                <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                <h4> Create </h4>
+                </div>
+                <div class="col-md-3">
+                <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+                <h4> Retrieve </h4>
+                </div>
+                <div class="col-md-3">
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                    <h4> Update </h4>
+                </div>
+                <div class="col-md-3">
+                    <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+                    <h4> Delete </h4>
+                </div>
+            </div>
         </div>
-    </div>
-    {% if messages %}
-        <ul>
+         {% if messages %}
+            <ul>
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
-        </ul>
-    {% endif %}
-    <form action="{% url 'login:register' %}" method="post">
-        {% csrf_token %}
-        <table>
-        {{ regform.as_table }}
-        </table>
-        <input type="submit" value="Register" />
-    </form>
+         </ul>
+         {% endif %}
+        <div class="register_space">
+            <h4>New User? Register Below!</h4>
+            <form action="{% url 'login:register' %}" method="post">
+            {% csrf_token %}
+                <table class="table_space">
+                {{ regform.as_table }}
+                </table>
+                <button class='btn btn-success btn-md' type='submit'>Register</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
