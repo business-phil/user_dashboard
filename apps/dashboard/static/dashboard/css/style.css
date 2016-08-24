@@ -1,3 +1,23 @@
 nav{
-	background-color:#000;
+	border-radius:0px !important;
+}
+
+.navbar-header a:hover{
+	color: red !important;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a {
+    color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: red !important;
+}
+
+textarea{
+	resize:none;
+}
+
+.wall_content{
+	padding-left:10px;
 }
