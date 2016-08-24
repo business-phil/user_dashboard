@@ -24,7 +24,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href=
-                "{%%20url%20'dashboard:index'%20%}">USER DASHBOARD</a>
+                "{% url 'dashboard:index' %}">USER DASHBOARD</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id=
@@ -32,13 +32,13 @@
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href=
-                        "{%%20url%20'dashboard:show'%20request.session.user_id%20%}">
+                        "{% url 'dashboard:show' request.session.user_id %}">
                         PROFILE<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{%%20url%20'login:index'%20%}">LOGOFF</a>
+                        <a href="{% url 'login:index' %}">LOGOFF</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -48,7 +48,7 @@
         <div class='row'>
             <div class='col-md-4'>
                 <h4>All Users</h4>
-            </div>{% for user in users %} {% endfor %}
+            </div>
             <table class="table table-bordered table-hover table-responsive">
                 <tr>
                     <th>ID</th>
@@ -57,13 +57,15 @@
                     <th>Created_at</th>
                     <th>User_level</th>
                 </tr>
+                {% for user in users %} 
                 <tr class="info">
                     <td>{{user.id}}</td>
-                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td><a href='{%url 'dashboard:show' user.id%}'>{{user.first_name}} {{user.last_name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.created_at}}</td>
                     <td>{{user.user_level}}</td>
                 </tr>
+                {% endfor %} 
             </table>
         </div><!-- end of container -->
     </div>
