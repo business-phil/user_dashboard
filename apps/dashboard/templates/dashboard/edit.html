@@ -15,48 +15,49 @@
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
-  	<div class="container-fluid">
+  		<div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'index' %}">USER DASHBOARD</a>
-    </div>
+    		<div class="navbar-header">
+     			<a class="navbar-brand" href="{% url 'index' %}">USER DASHBOARD</a>
+    		</div>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="{% url 'show' user.id=request.session.user_id %}">PROFILE<span class="sr-only">(current)</span></a></li>
-      </ul>
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    			<ul class="nav navbar-nav">
+    				<li class="active"><a href="{% url 'show' user.id=request.session.user_id %}">PROFILE<span class="sr-only">(current)</span></a></li>
+    			</ul>
 
-     <ul class="nav navbar-nav navbar-right">
-     	<li><a href="{% url 'login:index' %}">LOGOFF</a></li>
-     </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-  </nav>
-	<h1>Edit {{editStr}}</h1>
-	<div id=editInfoForm>
-	<p>Edit Information</p>
-		<form action="{url 'edit_user' }" method="POST">
-			{% csrf_token %}
-			{{editInfoForm.as_p}}
-			<input type="submit" value="Save">
-		</form>	
+    			<ul class="nav navbar-nav navbar-right">
+     				<li><a href="{% url 'login:index' %}">LOGOFF</a></li>
+    			</ul>
+   			</div><!-- /.navbar-collapse -->
+  		</div><!-- /.container-fluid -->
+  	</nav>
+  	<div class='container'>
+		<h1>Edit {{editStr}}</h1>
+		<div id=editInfoForm>
+			<p>Edit Information</p>
+			<form action="{% url 'edit_info' id=user_id %}" method="POST">
+				{% csrf_token %}
+				{{editInfoForm.as_p}}
+				<button type='submit' class='btn btn-success btn-sm'>Save</button>
+			</form>	
+		</div>
+		<div id="editPasswordForm">
+			<p>Change Password</p>
+			<form action="{% url 'edit_pw' id=user_id %}" method="POST">
+				{% csrf_token %}
+				{{editPasswordForm.as_p}}
+				<button type='submit' class='btn btn-success btn-sm'>"Update Password"</button>
+			</form>
+		</div>
+		<div id="editDescritionForm">
+			<p>Edit Description</p>
+			<form action="{% url 'edit_desc' id=user_id %}" method="POST">
+				{% csrf_token %}
+				{{editDescriptionForm}}
+				<button type='submit' class='btn btn-success btn-sm'>Save</button>
+			</form>
+		</div>
 	</div>
-	<div id="editPasswordForm">
-	<p>Change Password</p>
-		<form action="{url 'edit_user}" method="POST">
-			{% csrf_token %}
-			{{editPasswordForm.as_p}}
-			<input type="submit" Value="Update Password">
-		</form>
-	</div>
-	<div id="editDescritionForm">
-	<p>Edit Description</p>
-		<form action="{url 'edit_user}" method="POST">
-			{% csrf_token %}
-			{{editDescriptionForm}}
-			<input type="submit" value="Save">
-		</form>
-	</div>
-
 </body>
 </html>
