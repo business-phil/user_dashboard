@@ -8,10 +8,7 @@ from .forms import RegisterForm, EditForm, EditAdminForm, EditPasswordForm, Edit
 def index(request):
     current_user = User.objects.get(id=request.session['user_id'])
     user = User.objects.all()
-    context = {
-        'users' :user,
-                }
-
+    context = { 'users': user }
     if current_user.user_level == 'user':
         return render(request, 'dashboard/index.html', context)
     else: #only two choices for user level - admin and user
@@ -50,9 +47,7 @@ def edit(request, user_id):
         title = 'User'
         hidden = 'hidden'
     #create editPasswordForm
-    #NOTE: it is the same for admin and users
     editPasswordForm = EditPasswordForm()
-
     context = {
         'editForm': editForm,
         'editPasswordForm': editPasswordForm,
@@ -67,19 +62,16 @@ def edit(request, user_id):
 # POST request for user editing info
 def edit_info(request, user_id):  #POST REQUEST
     editStatus = User.userManager.editInfo(user_id, **request.POST)
-    print editStatus[1]
     return redirect(reverse('dashboard:index'))
 
 # POST request for user editing password
 def edit_pw(request, user_id):  #POST REQUEST
     editStatus = User.userManager.editPassword(user_id, **request.POST)
-    print editStatus[1]
     return redirect(reverse('dashboard:index'))
 
 # POST request for user editing description
 def edit_desc(request, user_id):  #POST REQUEST
     editStatus = User.userManager.editDescription(user_id, request.POST['description'])
-    print editStatus[1]
     return redirect(reverse('dashboard:index'))
 
 # POST link for delete user link (admin only)
@@ -100,7 +92,7 @@ def create_admin(request):
     else:
         for message in create_status[1]:
             messages.warning(request, message)
-            return redirect(reverse('login:new_admin'))
+        return redirect(reverse('login:new_admin'))
 
 # show user wall
 def show(request, user_id):
