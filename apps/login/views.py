@@ -17,7 +17,7 @@ def index(request):
 def register(request):
     regstatus = User.userManager.register(**request.POST)
     if regstatus[0]:
-        request.session['user_id'] = loginstatus[1]
+        request.session['user_id'] = regstatus[1]
         return redirect(reverse('dashboard:index'))
     else:
         for message in regstatus[1]:
