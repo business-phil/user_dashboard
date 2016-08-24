@@ -99,7 +99,7 @@ def create_admin(request):
 
 # show user wall
 def show(request, user_id):
-    messages = Message.objects.filter(walluser=user_id)
+    messages = Message.objects.filter(walluser=user_id).order_by('-created_at')
     comments = Comment.objects.all()
     user = User.objects.get(id=user_id)
     context = {
@@ -114,7 +114,7 @@ def new_message(request, user_id):  #POST REQUEST
     walluser = User.objects.get(id=user_id)
     message = request.POST['message']
     Message.objects.create(messageuser=messageuser, walluser=walluser, message=message)
-    return redirect(reverse('dashboard:show'), args=user_id)
+    return redirect(reverse('dashboard:show', args=user_id))
 
 # POST request for adding comment
 def new_comment(request, user_id, message_id):  #POST REQUEST
@@ -122,7 +122,7 @@ def new_comment(request, user_id, message_id):  #POST REQUEST
     message = Message.objects.get(id=message_id)
     comment = request.POST['comment']
     Comment.objects.create(user=user, message=message, comment=comment)
-    return redirect(reverse('dashboard:show'), args=user_id)
+    return redirect(reverse('dashboard:show', args=user_id))
 
 '''
 TO BE ADDED:
