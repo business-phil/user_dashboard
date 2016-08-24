@@ -17,7 +17,7 @@ def index(request):
 def register(request):
     regstatus = User.userManager.register(**request.POST)
     if regstatus[0]:
-        return redirect(reverse('dashboard:index_admin'))
+        return redirect(reverse('dashboard:index'))
     else:
         for message in regstatus[1]:
             messages.warning(request, message)
@@ -26,12 +26,9 @@ def register(request):
 # Submit login form
 def login(request):
     loginstatus = User.userManager.login(request.POST['email'], request.POST['password'])
-    print "MAYBE HERE?!"
     if loginstatus[0]:
         request.session['user_id'] = loginstatus[1]
-        print "THSI SHOULD WORK"
         return redirect(reverse('dashboard:index'))
     else:
         messages.warning(request, loginstatus[1])
-        print "DIDNT WORK SRY"
         return redirect(reverse('login:index'))
