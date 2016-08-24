@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.urlresolvers import reverse
 from .models import User, Message, Comment
+from ..login.forms import RegisterForm
 
 # user/admin home page
 def index(request):
@@ -85,17 +86,23 @@ def edit_pw_admin(request, user_id):  #POST REQUEST
 
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):  #POST REQUEST
-    User.objects.filter(user_id=user_id).delete()
-    return redirect(reverse('dashboard:index_admin')) 
+    User.objects.get(id= user_id).delete()
+    return redirect(reverse('dashboard:index')) 
 
 # admin page to create new user
 def new_admin(request):
-    return render(request, 'dashboard/new_admin.html')
+    context = {'regform': RegisterForm }
+    return render(request, 'dashboard/new_admin.html', context)
 
 # POST link for new user form (admin only)
 def create_admin(request):
-    User.objects.create(email= request.POST['email'], first_name = request.POST['first_name'], last_name= request.POST['last_name'], password= request.POST['password'])
-    return redirect(reverse('dashboard:index_admin'))
+    create_status = User.userManager.register(**request.POST)
+    if create_status[0]:
+        return redirect(reverse('dashboard:index'))
+    else:
+        for message in create_status[1]:
+            messages.warning(request, message)
+            return redirect(reverse('login:new_admin'))
 
 # show user wall
 def show(request, user_id):

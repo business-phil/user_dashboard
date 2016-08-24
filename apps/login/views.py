@@ -17,12 +17,11 @@ def index(request):
 def register(request):
     regstatus = User.userManager.register(**request.POST)
     if regstatus[0]:
-        request.session['user_id'] = regstatus[1]
-        return redirect(reverse('dashboard:index'))
+        return redirect(reverse('dashboard:index_admin'))
     else:
         for message in regstatus[1]:
             messages.warning(request, message)
-        return redirect(reverse('login:index'))
+        return redirect(reverse('login:new_admin'))
 
 # Submit login form
 def login(request):
