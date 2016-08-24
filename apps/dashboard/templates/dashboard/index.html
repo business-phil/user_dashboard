@@ -6,6 +6,8 @@
 </head>
 <body>
     {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
+    <!-- Latest compiled and minified CSS -->
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     rel="stylesheet"><!-- Optional theme -->
@@ -39,10 +41,10 @@
     <div class='container-fluid'>
         <div class='row'>
             <div class='col-md-4'>
-                <h4>All Users</h4>
+                <h3>All Users</h3>
             </div>
-            <table class="table table-bordered table-hover table-responsive">
-                <tr>
+            <table class="table table-bordered table-hover table-responsive ">
+                <tr class="info">
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -50,7 +52,7 @@
                     <th>User_level</th>
                 </tr>
                 {% for user in users %} 
-                <tr class="info">
+                <tr class="primary">
                     <td>{{user.id}}</td>
                     <td><a href="{%url 'dashboard:show' user.id%}">{{user.first_name}} {{user.last_name}}</a></td>
                     <td>{{user.email}}</td>
