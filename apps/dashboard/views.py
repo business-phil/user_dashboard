@@ -99,7 +99,7 @@ def create_admin(request):
 
 # show user wall
 def show(request, user_id):
-    messages = Message.objects.all()
+    messages = Message.objects.filter(walluser=user_id)
     comments = Comment.objects.all()
     user = User.objects.get(id=user_id)
     context = {
@@ -109,19 +109,20 @@ def show(request, user_id):
     }
     return render(request, 'dashboard/show.html', context)
 # POST request for adding message
-def new_message(request):  #POST REQUEST
-    user = User.objects.get(id=request.session['user_id'])
+def new_message(request, user_id):  #POST REQUEST
+    messageuser = User.objects.get(id=request.session['user_id'])
+    walluser = User.objects.get(id=user_id)
     message = request.POST['message']
-    Message.objects.create(user=user, message=message)
-    return redirect(reverse('show'))
+    Message.objects.create(messageuser=messageuser, walluser=walluser, message=message)
+    return redirect(reverse('dashboard:show'), args=user_id)
 
 # POST request for adding comment
-def new_comment(request, message_id):  #POST REQUEST
+def new_comment(request, user_id, message_id):  #POST REQUEST
     user = User.objects.get(id=request.session['user_id'])
     message = Message.objects.get(id=message_id)
     comment = request.POST['comment']
     Comment.objects.create(user=user, message=message, comment=comment)
-    return redirect(reverse('show'))
+    return redirect(reverse('dashboard:show'), args=user_id)
 
 '''
 TO BE ADDED:
