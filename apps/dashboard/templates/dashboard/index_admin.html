@@ -30,7 +30,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{% url'login:index' %}">LOGOFF</a>
+                        <a href="{% url 'login:index' %}">LOGOFF</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -60,13 +60,13 @@
                 {% for user in users %} 
                 <tr class="info">
                     <td>{{user.id}}</td>
-                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td><a href="{%url 'dashboard:show' user.id%}">{{user.first_name}} {{user.last_name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.created_at}}</td>
                     <td>{{user.user_level}}</td>
                     <td>
                         <a href= "{% url 'dashboard:remove_admin' user.id %}">Delete</a>
-                        <a href="{% url'dashboard:edit' user.id %}">Edit</a>
+                        <a href="{% url 'dashboard:edit' user.id %}">Edit</a>
                     </td>
                 </tr>
                 {% endfor %}

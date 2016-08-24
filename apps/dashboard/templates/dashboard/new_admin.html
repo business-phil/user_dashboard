@@ -23,13 +23,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="{% url'dashboard:show' request.session.user_id %}">
+                        <a href="{% url 'dashboard:show' request.session.user_id %}">
                         PROFILE<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{% url'login:index' %}">LOGOFF</a>
+                        <a href="{% url 'login:index' %}">LOGOFF</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -47,16 +47,31 @@
                 </form>
             </div>
         </div>
-        <form action="{% url 'dashboard:create_admin'%}" class=""
-        method="post">
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="{% url 'dashboard:create_admin' %}" method="post"> 
+        {% csrf_token %}
+            <table>
+            {{ regform.as_table }}
+            </table>
+            <input type="submit" value="Create" />
+        </form>
+
+       <!--  <form action="{% url 'dashboard:create_admin' %}"  method="post">
             {% csrf_token %}
             <p>Email:</p><input name='email' type='text'>
             <p>First Name:</p><input name='first_name' type='text'>
             <p>Last Name:</p><input name='last_name' type='text'>
             <p>Password:</p><input name='password' type='password'>
             <p>Confirm Password:</p>
-            <p><input name='conf_password' type='password'></p><button class='btn btn-success btn-sm' type='submit'>Create</button>
-        </form>
+            <p><input name='confirm_password' type='password'></p><button class='btn btn-success btn-sm' type='submit'>Create</button>
+        </form> -->
     </div>
 </body>
 </html>

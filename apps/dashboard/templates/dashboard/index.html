@@ -6,33 +6,25 @@
 </head>
 <body>
     {% load staticfiles %}
-    <link crossorigin="anonymous" href=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity=
-    "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     rel="stylesheet"><!-- Optional theme -->
-    <link crossorigin="anonymous" href=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity=
-    "sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
     rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
-    <script src=
-    "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
     </script>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href=
-                "{% url 'dashboard:index' %}">USER DASHBOARD</a>
+                <a class="navbar-brand" href="{% url 'dashboard:index' %}">USER DASHBOARD</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id=
-            "bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href=
-                        "{% url 'dashboard:show' request.session.user_id %}">
+                        <a href="{% url 'dashboard:show' request.session.user_id %}">
                         PROFILE<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
@@ -60,7 +52,7 @@
                 {% for user in users %} 
                 <tr class="info">
                     <td>{{user.id}}</td>
-                    <td><a href='{%url 'dashboard:show' user.id%}'>{{user.first_name}} {{user.last_name}}</a></td>
+                    <td><a href="{%url 'dashboard:show' user.id%}">{{user.first_name}} {{user.last_name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.created_at}}</td>
                     <td>{{user.user_level}}</td>
