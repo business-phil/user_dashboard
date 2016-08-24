@@ -37,7 +37,9 @@
 		<h4>Edit Information</h4>
 			<form action="{% url 'dashboard:edit_info' user_id %}" method="POST">
 				{% csrf_token %}
-				{{editForm.as_p}}
+                <table>
+				{{editForm.as_table}}
+                </table>
 				<button type='submit' class='btn btn-success btn-sm'>Save</button>
 			</form>
 		</div>
@@ -45,7 +47,9 @@
 		<h4>Change Password</h4>
 			<form action="{% url 'dashboard:edit_pw' user_id %}" method="POST">
 				{% csrf_token %}
-				{{editPasswordForm.as_p}}
+                <table>
+				{{editPasswordForm.as_table}}
+                </table>
 				<button type='submit' class='btn btn-success btn-sm'>Update Password</button>
 			</form>
 		</div>
@@ -53,7 +57,9 @@
 		<h4>Edit Description</h4>
 			<form action="{% url 'dashboard:edit_desc' user_id %}" method="POST">
 				{% csrf_token %}
-				{{editDescriptionForm.as_p}}
+                <table>
+				{{editDescriptionForm.as_table}}
+                </table>
 				<button type='submit' class='btn btn-success btn-sm'>Save</button>
 			</form>
 		</div>

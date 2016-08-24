@@ -52,14 +52,14 @@
         </ul>
         {% endif %}
 
-        <form action="{% url 'dashboard:create_admin' %}" method="post"> 
+        <form action="{% url 'dashboard:create_admin' %}" method="post">
         {% csrf_token %}
             <table class='table_add'>
             {{ regform.as_table }}
             </table>
             <button class='btn btn-success btn-md' type='submit'>Create New User!</button>
         </form>
-       <!-- COMMENTED OUT RETURN TO DASHBOARD - redundant. <div class='col-md-2 col-md-offset-10'> 
+       <!-- COMMENTED OUT RETURN TO DASHBOARD - redundant. <div class='col-md-2 col-md-offset-10'>
             <form action="{% url 'dashboard:index' %}" class="form-inline" method='post'>
                 {% csrf_token %} <button class='btn btn-success btn-sm'
                 type='submit'>Return to Dashboard</button>
