@@ -6,28 +6,23 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
     <!-- Latest compiled and minified CSS -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    rel="stylesheet"><!-- Optional theme -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-    rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+    <!-- Optional theme -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" rel="stylesheet">
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url 'dashboard:index' %}">USER DASHBOARD</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li>
                         <a href="{% url 'dashboard:show' request.session.user_id %}">
-                        PROFILE<span class="sr-only">(current)</span></a>
+                        PROFILE <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -35,23 +30,20 @@
                         <a href="{% url 'login:index' %}">LOGOFF</a>
                     </li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class='container-fluid'>
-        <div class='row'>
-            <div class='col-md-2'>
-                <h3>Add a New User</h3>
             </div>
         </div>
+    </nav> <!-- end navbar -->
+    <div class='container'>
+        <div class='row'>
+            <h3>Add a New User</h3>
+        </div>
         {% if messages %}
-        <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-        </ul>
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
         {% endif %}
-
         <form action="{% url 'dashboard:create_admin' %}" method="post">
         {% csrf_token %}
             <table class='table_add'>

@@ -2,30 +2,25 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Home | User Dashboard</title> {% load staticfiles %}
-</head>
-<body>
+    <title>Admin Home | User Dashboard</title>
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
     <!-- Latest compiled and minified CSS -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    rel="stylesheet"><!-- Optional theme -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-    rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+    <!-- Optional theme -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" rel="stylesheet">
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+</head>
+<body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
+            <div class="navbar-header active">
                 <a class="navbar-brand" href="{% url 'dashboard:index' %}">USER DASHBOARD</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li>
                         <a href="{% url 'dashboard:show' request.session.user_id %}">
                         PROFILE <span class="sr-only">(current)</span></a>
                     </li>
@@ -35,19 +30,14 @@
                         <a href="{% url 'login:index' %}">LOGOFF</a>
                     </li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class='container-fluid'>
+            </div>
+        </div>
+    </nav> <!-- end navbar -->
+    <div class='container'>
         <div class='row'>
             <div class='col-md-6'>
                 <h3 class='less_margin'>Manage Users</h3>
             </div>
-          <!--   <div class='col-md-2 col-md-offset-1'>
-                <form action="{% url 'dashboard:new_admin' %}" class="form-inline" method='post'>
-                    {% csrf_token %} <button class='btn btn-success btn-sm'
-                    type='submit'>Add New</button>
-                </form> -->
             </div>
             <table class="table table-bordered table-hover table-responsive">
                 <tr class="success">
@@ -58,7 +48,7 @@
                     <th>User_level</th>
                     <th>Actions</th>
                 </tr>
-                {% for user in users %} 
+                {% for user in users %}
                 <tr>
                     <td>{{user.id}}</td>
                     <td><a href="{%url 'dashboard:show' user.id%}">{{user.first_name}} {{user.last_name}}</a></td>
@@ -66,7 +56,7 @@
                     <td>{{user.created_at}}</td>
                     <td>{{user.user_level}}</td>
                     <td>
-                        <a href= "{% url 'dashboard:remove_admin' user.id %}">Delete</a>  |  
+                        <a href= "{% url 'dashboard:remove_admin' user.id %}">Delete</a>  |
                         <a href="{% url 'dashboard:edit' user.id %}">Edit</a>
                     </td>
                 </tr>
@@ -74,7 +64,7 @@
             </table>
               <div class='button_add'>
                 <form action="{% url 'dashboard:new_admin' %}"  method='post'>
-                    {% csrf_token %} 
+                    {% csrf_token %}
                     <button class='btn btn-success btn-md' type='submit'>Add New</button>
                 </form>
         </div><!-- end of container -->

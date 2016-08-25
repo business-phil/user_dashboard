@@ -3,31 +3,26 @@
 <head>
     <meta charset="utf-8">
     <title>Home | User Dashboard</title>
-</head>
-<body>
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
     <!-- Latest compiled and minified CSS -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    rel="stylesheet"><!-- Optional theme -->
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-    rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+    <!-- Optional theme -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" rel="stylesheet">
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+</head>
+<body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="{% url 'dashboard:index' %}">USER DASHBOARD</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active">
                         <a href="{% url 'dashboard:show' request.session.user_id %}">
-                        PROFILE<span class="sr-only">(current)</span></a>
+                        PROFILE <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -35,10 +30,10 @@
                         <a href="{% url 'login:index' %}">LOGOFF</a>
                     </li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class='container-fluid'>
+            </div>
+        </div>
+    </nav> <!-- end navbar -->
+    <div class='container'>
         <div class='row'>
             <div class='col-md-4'>
                 <h3>All Users</h3>
@@ -51,7 +46,7 @@
                     <th>Created_at</th>
                     <th>User_level</th>
                 </tr>
-                {% for user in users %} 
+                {% for user in users %}
                 <tr class="primary">
                     <td>{{user.id}}</td>
                     <td><a href="{%url 'dashboard:show' user.id%}">{{user.first_name}} {{user.last_name}}</a></td>
@@ -59,7 +54,7 @@
                     <td>{{user.created_at}}</td>
                     <td>{{user.user_level}}</td>
                 </tr>
-                {% endfor %} 
+                {% endfor %}
             </table>
         </div><!-- end of container -->
     </div>

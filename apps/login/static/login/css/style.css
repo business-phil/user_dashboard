@@ -1,6 +1,7 @@
 nav{
 	border-radius:0px !important;
 }
+
 .navbar-header a:hover{
 	color: red !important;
 }
@@ -17,7 +18,7 @@ form.form-inline {
 	padding: 10px;
 }
 
-form.form-inline .form-group {
+div.form-group {
 	margin: 0px 10px;
 }
 
@@ -41,7 +42,6 @@ form.form-inline label {
 
 .glyphicon-cloud {
 	color: #294FF9;
-
 }
 
 .glyphicon-leaf {
@@ -59,6 +59,7 @@ form.form-inline label {
 .table_space label {
 	padding: 10px;
 }
+
 .btn {
 	margin-left: 10px;
 }
