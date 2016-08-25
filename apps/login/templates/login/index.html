@@ -15,22 +15,19 @@
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand">USER DASHBOARD</a>
+                <h4 class="navbar-brand">USER DASHBOARD</h4>
             </div>
-            <div class="nav navbar-nav navbar-right">
-                <form class="form-inline" action="{% url 'login:login' %}" method="post">
-                    {% csrf_token %}
-                    {% for input in loginform %}
-                        <div class="form-group">
-                            {{ input.label_tag }}{{ input }}
-                        </div>
-                    {% endfor %}
-                    <button class="btn btn-default btn-sm" type="submit">Log In</button>
-                </form>
-            </div>
-        </div><!-- /.container-fluid -->
+            <form class="form-inline navbar-right" action="{% url 'login:login' %}" method="post">
+                {% csrf_token %}
+                {% for input in loginform %}
+                    <div class="form-group">
+                        {{ input.label_tag }}{{ input }}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-default btn-sm" type="submit">Log In</button>
+            </form>
+        </div>
     </nav>
     <div class='container'>
         <div class="description">
@@ -43,19 +40,19 @@
                 <div class="row">
                 <div class="col-md-3">
                 <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                <h4> Create </h4>
+                <h3> Create </h3>
                 </div>
                 <div class="col-md-3">
                 <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
-                <h4> Retrieve </h4>
+                <h3> Retrieve </h3>
                 </div>
                 <div class="col-md-3">
                     <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                    <h4> Update </h4>
+                    <h3> Update </h3>
                 </div>
                 <div class="col-md-3">
                     <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
-                    <h4> Delete </h4>
+                    <h3> Delete </h3>
                 </div>
             </div>
         </div>
