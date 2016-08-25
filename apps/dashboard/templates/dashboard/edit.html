@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Edit {{title}} | User Dashboard</title>
+    <title>Edit User | User Dashboard</title>
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/style.css' %}">
     <!-- Latest compiled and minified CSS -->
@@ -31,11 +31,14 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class='container'>
-
-		<h1>Edit {{editStr}}</h1>
+        {% if user.id == request.session.user_id %}
+    		<h3>Edit Profile</h3>
+        {% else %}
+            <h3>Edit {{ user.first_name }} {{ user.last_name }}</h3>
+        {% endif %}
 		<div id=editInfoForm>
 		<h4>Edit Information</h4>
-			<form action="{% url 'dashboard:edit_info' user_id %}" method="POST">
+			<form action="{% url 'dashboard:edit_info' user.id %}" method="POST">
 				{% csrf_token %}
                 <table>
 				{{editForm.as_table}}
@@ -45,7 +48,7 @@
 		</div>
 		<div id="editPasswordForm">
 		<h4>Change Password</h4>
-			<form action="{% url 'dashboard:edit_pw' user_id %}" method="POST">
+			<form action="{% url 'dashboard:edit_pw' user.id %}" method="POST">
 				{% csrf_token %}
                 <table>
 				{{editPasswordForm.as_table}}
@@ -53,17 +56,18 @@
 				<button type='submit' class='btn btn-success btn-sm'>Update Password</button>
 			</form>
 		</div>
-		<div {{hidden}} id="editDescritionForm">
-		<h4>Edit Description</h4>
-			<form action="{% url 'dashboard:edit_desc' user_id %}" method="POST">
-				{% csrf_token %}
-                <table>
-				{{editDescriptionForm.as_table}}
-                </table>
-				<button type='submit' class='btn btn-success btn-sm'>Save</button>
-			</form>
-		</div>
-
+        {% if editDescriptionForm %}
+    		<div id="editDescritionForm">
+    		<h4>Edit Description</h4>
+    			<form action="{% url 'dashboard:edit_desc' user.id %}" method="POST">
+    				{% csrf_token %}
+                    <table>
+    				{{editDescriptionForm.as_table}}
+                    </table>
+    				<button type='submit' class='btn btn-success btn-sm'>Save</button>
+    			</form>
+    		</div>
+        {% endif %}
 	</div>
 </body>
 </html>
