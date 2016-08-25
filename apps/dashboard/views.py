@@ -6,16 +6,20 @@ from .forms import RegisterForm, EditForm, EditAdminForm, EditPasswordForm, Edit
 
 # user/admin home page
 def index(request):
+    if not 'user_id' in request.session:
+        return redirect(reverse('login:index'))
     current_user = User.objects.get(id=request.session['user_id'])
     user = User.objects.all()
     context = { 'users': user }
-    if current_user.user_level == 'user':
-        return render(request, 'dashboard/index.html', context)
-    else: #only two choices for user level - admin and user
+    if current_user.user_level == 'admin':
         return render(request, 'dashboard/index_admin.html', context)
+    else: #only two choices for user level - admin and user
+        return render(request, 'dashboard/index.html', context)
 
 # users page to edit own info
 def edit(request, user_id):
+    if not 'user_id' in request.session:
+        return redirect(reverse('login:index'))
     #get the user object for whomever is in session
     user = User.objects.get(id=request.session['user_id'])
     print user_id, type(user_id)
@@ -81,6 +85,15 @@ def remove_admin(request, user_id):  #POST REQUEST
 
 # admin page to create new user
 def new_admin(request):
+    #if no user in session then redirect to login:index
+    if not 'user_id' in request.session:
+        return redirect(reverse('login:index'))
+    #query the current user and check their user level
+    #if not admin, redirect to dashboard:index
+    current_user = User.objects.get(id=request.session['user_id'])
+    if current_user.user_level == 'user':
+        return render(request, 'dashboard/index.html', context)
+
     context = {'regform': RegisterForm }
     return render(request, 'dashboard/new_admin.html', context)
 
@@ -96,6 +109,10 @@ def create_admin(request):
 
 # show user wall
 def show(request, user_id):
+    #if no user in session then redirect to login:index
+    if not 'user_id' in request.session:
+        return redirect(reverse('login:index'))
+
     messages = Message.objects.filter(walluser=user_id).order_by('-created_at')
     comments = Comment.objects.all()
     user = User.objects.get(id=user_id)
