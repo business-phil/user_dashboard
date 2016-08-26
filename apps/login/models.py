@@ -54,7 +54,7 @@ class UserManager(models.Manager):
             return (False, "Invalid email address")
     # EDIT INFO form - dashboard/edit/user_id
     def editInfo(self, user_id, email, first_name, last_name, csrfmiddlewaretoken, user_level=['user']):
-        messageList = []
+        messagelist = []
         # Validate email
         email = email[0]
         if not match(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$', email):
@@ -76,10 +76,10 @@ class UserManager(models.Manager):
         if user_level != 'user' and user_level != 'admin':
             messagelist.append("User Level must be 'user' or 'admin'")
         # Check if all validations passed
-        if len(messageList) > 0:
-            return (False, messageList)
+        if len(messagelist) > 0:
+            return (False, messagelist)
         self.filter(id=user_id).update(email=email, first_name=first_name, last_name=last_name, user_level=user_level)
-        return (True, ["User Info updated successfully"])
+        return (True, "User Info updated successfully")
     # CHANGE PASSWORD form - dashboard/edit/user_id
     def editPassword(self, user_id, password, confirm_password, csrfmiddlewaretoken):
         messagelist = []
@@ -96,14 +96,14 @@ class UserManager(models.Manager):
             return(False, messagelist)
         pw_hash = hashpw(password.encode(), gensalt())
         self.filter(id=user_id).update(password=pw_hash)
-        return (True, ["User Info updated successfully"])
+        return (True, "User Info updated successfully")
     # EDIT DESCRIPTION form - dashboard/edit/user_id
     def editDescription(self, user_id, description):
         # Validate description
         if len(description) == 0:
             description = ""
         self.filter(id=user_id).update(description=str(description))
-        return (True, ["Description Successfully Updated"])
+        return (True, "Description Successfully Updated")
 
 class User(models.Model):
     email = models.EmailField(unique=True)

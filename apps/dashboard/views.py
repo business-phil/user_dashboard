@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from .models import User, Message, Comment
 from .forms import RegisterForm, EditForm, EditAdminForm, EditPasswordForm, EditDescriptionForm
 
@@ -16,7 +17,7 @@ def index(request):
     else:
         return render(request, 'dashboard/index.html', context)
 
-# users page to edit own info
+# edit page for users and admin
 def edit(request, user_id):
     if not 'user_id' in request.session:
         return redirect(reverse('login:index'))
@@ -25,6 +26,7 @@ def edit(request, user_id):
     if user.id != int(user_id) and user.user_level == 'user':
         return redirect(reverse('dashboard:edit', args=[user.id]))
     urlUser = User.objects.get(id=user_id)
+    # generate edit forms based on user_level and whose page an admin is looking at
     editForm = EditForm(user=user) if user.user_level == 'user' else EditAdminForm(user=urlUser)
     editDescription = EditDescriptionForm(user=user) if user.id == int(user_id) else ''
     context = {
@@ -37,18 +39,36 @@ def edit(request, user_id):
 
 # POST request for user editing info
 def edit_info(request, user_id):
-    editStatus = User.userManager.editInfo(user_id, **request.POST)
-    return redirect(reverse('dashboard:index'))
+    editstatus = User.userManager.editInfo(user_id, **request.POST)
+    # generate messages based on whether or not validation was successful
+    if editstatus[0]:
+        messages.success(request, editstatus[1])
+    else:
+        for message in editstatus[1]:
+            messages.warning(request, message)
+    return redirect(reverse('dashboard:edit', args=[user_id]))
 
 # POST request for user editing password
 def edit_pw(request, user_id):
-    editStatus = User.userManager.editPassword(user_id, **request.POST)
-    return redirect(reverse('dashboard:index'))
+    editstatus = User.userManager.editPassword(user_id, **request.POST)
+    # generate messages based on whether or not validation was successful
+    if editstatus[0]:
+        messages.success(request, editstatus[1])
+    else:
+        for message in editstatus[1]:
+            messages.warning(request, message)
+    return redirect(reverse('dashboard:edit', args=[user_id]))
 
 # POST request for user editing description
 def edit_desc(request, user_id):
-    editStatus = User.userManager.editDescription(user_id, request.POST['description'])
-    return redirect(reverse('dashboard:index'))
+    editstatus = User.userManager.editDescription(user_id, request.POST['description'])
+    # generate messages based on whether or not validation was successful
+    if editstatus[0]:
+        messages.success(request, editstatus[1])
+    else:
+        for message in editstatus[1]:
+            messages.warning(request, message)
+    return redirect(reverse('dashboard:edit', args=[user_id]))
 
 # POST link for delete user link (admin only)
 def remove_admin(request, user_id):

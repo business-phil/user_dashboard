@@ -16,7 +16,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <h4 class="navbar-brand">USER DASHBOARD</h4>
+                <a class="navbar-brand">USER DASHBOARD</a>
             </div>
             <form class="form-inline navbar-right" action="{% url 'login:login' %}" method="post">
                 {% csrf_token %}
@@ -28,41 +28,39 @@
                 <button class="btn btn-default btn-sm" type="submit">Log In</button>
             </form>
         </div>
-    </nav>
+    </nav> <!-- end navbar -->
     <div class='container'>
-        <div class="description">
-            <h2>Welcome to the User Dashboard!</h2>
-                <div class="row">
-                <div class="col-md-6">
-                    <h4>The User Dashboard allows you to stay connected with other members in the community. Sign up now to receive and share the most up-to-date news!</h4>
-                </div>
-                </div>
-                <div class="row">
-                <div class="col-md-3">
-                    <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
-                    <h3> Create </h3>
-                </div>
-                <div class="col-md-3">
-                    <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-                    <h3> Retrieve </h3>
-                </div>
-                <div class="col-md-3">
-                    <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
-                    <h3> Update </h3>
-                </div>
-                <div class="col-md-3">
-                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                    <h3> Delete </h3>
-                </div>
+        <h2>Welcome to the User Dashboard!</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>The User Dashboard allows you to stay connected with other members in the community. Sign up now to receive and share the most up-to-date news!</h4>
             </div>
         </div>
-         {% if messages %}
+        <div class="row">
+            <div class="col-md-3">
+                <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+                <h3> Create </h3>
+            </div>
+            <div class="col-md-3">
+                <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                <h3> Retrieve </h3>
+            </div>
+            <div class="col-md-3">
+                <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+                <h3> Update </h3>
+            </div>
+            <div class="col-md-3">
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                <h3> Delete </h3>
+            </div>
+        </div> <!-- end CRUD icon row -->
+        {% if messages %}
             <ul>
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
-         </ul>
-         {% endif %}
+            </ul>
+        {% endif %}  <!-- end messages -->
         <div class="register_space">
             <h4>New User? Register Below!</h4>
             <form action="{% url 'login:register' %}" method="post">
@@ -72,7 +70,7 @@
                 </table>
                 <button class='btn btn-success btn-md' type='submit'>Register</button>
             </form>
-        </div>
+        </div> <!-- end register form -->
     </div>
 </body>
 </html>
